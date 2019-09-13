@@ -27,7 +27,15 @@ class WeatherAppView(APIView):
             city = serializer.validated_data.get('city')
             # make a request to the weatherAPI
             weather_data = get_weather_data(city)
-
-        return Response(weather_data)
+            if weather_data['status'] == 200:
+                return Response({'data': weather_data['data'],
+                                'status': status.HTTP_200_OK})
+            else:
+                return Response(weather_data)
+        else:
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
 
