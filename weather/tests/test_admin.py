@@ -1,9 +1,17 @@
+"""
+    Module for testing admin features
+"""
+
+
 from django.urls import reverse
 from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
 
 
 class AdminSiteTests(TestCase):
+    """
+    Test several admin features
+    """
 
     def setUp(self):
         """A function that is run before every test in this class is run"""
@@ -12,7 +20,8 @@ class AdminSiteTests(TestCase):
             email="admin@GMAIL.COM",
             password="password123"
         )
-        self.client.force_login(self.admin_user)  # helps login the user without us manually logging in the user
+        # helps login the user without us manually logging in the user
+        self.client.force_login(self.admin_user)
         self.user = get_user_model().objects.create_user(
             email="test@fake.com",
             password="password123",
